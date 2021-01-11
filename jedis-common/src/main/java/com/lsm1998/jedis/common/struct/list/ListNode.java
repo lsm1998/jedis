@@ -1,4 +1,4 @@
-package com.lsm1998.jedis.common.list;
+package com.lsm1998.jedis.common.struct.list;
 
 /**
  * 链表节点

@@ -1,4 +1,4 @@
-package com.lsm1998.jedis.common.string;
+package com.lsm1998.jedis.common.struct.string;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package com.lsm1998.jedis.common.hash;
+package com.lsm1998.jedis.common.struct.hash;
 
 public class DictType<E>
 {
