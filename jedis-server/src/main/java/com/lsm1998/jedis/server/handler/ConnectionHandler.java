@@ -7,6 +7,7 @@ package com.lsm1998.jedis.server.handler;
 import com.lsm1998.jedis.common.socket.ReplyData;
 import com.lsm1998.jedis.common.socket.ReplyType;
 import com.lsm1998.jedis.common.utils.BitObjectUtil;
+import com.lsm1998.jedis.connect.ConnectMap;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -23,9 +24,12 @@ public class ConnectionHandler
 {
     private final Charset charset;
 
+    private final ConnectMap connectMap;
+
     public ConnectionHandler()
     {
         this.charset = StandardCharsets.UTF_8;
+        this.connectMap = new ConnectMap();
     }
 
     public void accept(SelectionKey key, ServerSocketChannel server, Selector selector) throws IOException
@@ -34,6 +38,7 @@ public class ConnectionHandler
         channel.configureBlocking(false);
         channel.register(selector, SelectionKey.OP_READ);
         key.interestOps(SelectionKey.OP_ACCEPT);
+        connectMap.joinConnect(channel);
     }
 
     public void read(SelectionKey key) throws IOException

@@ -32,4 +32,9 @@ public class RedisDBServer
             redisDB[i] = new RedisDB();
         }
     }
+
+    public RedisDB getRedisDB(int index)
+    {
+        return this.redisDB[index];
+    }
 }

@@ -33,6 +33,4 @@ public enum EncodingType
 //    #define REDIS_ENCODING_INTSET 6  /* Encoded as intset */
 //    #define REDIS_ENCODING_SKIPLIST 7  /* Encoded as skiplist */
 //    #define REDIS_ENCODING_EMBSTR 8  /* Embedded sds string encoding */
-
-
 }

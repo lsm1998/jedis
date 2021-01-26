@@ -1,6 +1,6 @@
 package com.lsm1998.jedis.common;
 
-public class RedisObject<E>
+public class RedisObject
 {
     // 数据类型
     private RedisType type;
@@ -15,5 +15,5 @@ public class RedisObject<E>
     private int refCount;
 
     // 指向实际值
-    private E ptr;
+    private Object ptr;
 }
