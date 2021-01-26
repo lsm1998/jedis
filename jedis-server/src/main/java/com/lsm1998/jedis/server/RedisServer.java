@@ -1,12 +1,14 @@
+/**
+ * 作者：刘时明
+ * 时间：2021/1/26
+ */
 package com.lsm1998.jedis.server;
 
-import com.lsm1998.jedis.common.db.RedisDB;
+import java.io.IOException;
 
-public class RedisServer
+public interface RedisServer
 {
-    // 数据库数量
-    private int dbNum;
+    void start() throws IOException;
 
-    // 数据库实例数组
-    private RedisDB[] redisDB;
+    void stop() throws IOException;
 }
