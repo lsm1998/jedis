@@ -4,7 +4,7 @@
  */
 package com.lsm1998.jedis.config;
 
-import com.lsm1998.jedis.common.utils.ArraysUtils;
+import com.lsm1998.jedis.common.utils.ArraysUtil;
 import com.lsm1998.jedis.common.utils.ReflectObject;
 import com.lsm1998.jedis.constant.SysProperties;
 import lombok.Data;
@@ -89,7 +89,7 @@ public class RedisConfig
                             arrayMap.put(line[0], new String[]{line[1]});
                         } else
                         {
-                            arrayMap.put(line[0], ArraysUtils.append(array.length, line[1], array, String.class));
+                            arrayMap.put(line[0], ArraysUtil.append(array.length, line[1], array, String.class));
                         }
                     }
                 }

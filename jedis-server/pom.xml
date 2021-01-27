@@ -22,5 +22,12 @@
             <artifactId>jedis-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
+        <!-- cglib -->
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>3.2.5</version>
+        </dependency>
     </dependencies>
 </project>

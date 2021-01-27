@@ -7,6 +7,7 @@ import com.lsm1998.jedis.socket.JedisClientSocket;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -16,24 +17,14 @@ public class CmdRead
     {
         socket.connect();
         Scanner scanner = new Scanner(System.in);
-        StringBuilder sql = new StringBuilder();
         while (true)
         {
             System.out.print(">>");
             String line = scanner.nextLine();
-            if (sql.length() > 0)
+            // 这一条命令已经结束了
+            if (!readReply(socket, line))
             {
-                sql.append("\n");
-            }
-            sql.append(line);
-            if (sql.toString().endsWith(";"))
-            {
-                // 这一条命令已经结束了
-                if (!readReply(socket, sql.toString()))
-                {
-                    break;
-                }
-                sql.delete(0, sql.length());
+                break;
             }
         }
     }
@@ -60,13 +51,19 @@ public class CmdRead
                     ReplyData<?> replyData = optional.get();
                     if (replyData.getType() == ReplyType.REPLY_LONG)
                     {
-                        printReset(replyData.getData());
+                        System.out.println(replyData.getData());
                     } else if (replyData.getType() == ReplyType.REPLY_ERROR)
                     {
-                        System.out.printf("sql error，%s \n", replyData.getData());
+                        System.out.printf("cmd error，%s \n", replyData.getData());
                     } else if (replyData.getType() == ReplyType.REPLY_STRING)
                     {
-                        printReset(replyData.getData());
+                        System.out.println("\"" + replyData.getData() + "\"");
+                    } else if (replyData.getType() == ReplyType.REPLY_NULL)
+                    {
+                        System.out.println(replyData.getData());
+                    } else if (replyData.getType() == ReplyType.REPLY_LIST)
+                    {
+                        printlnList(replyData.getData());
                     }
                 }
                 break;
@@ -74,8 +71,11 @@ public class CmdRead
         return true;
     }
 
-    private static void printReset(Serializable rs)
+    private static void printlnList(Serializable data)
     {
-        System.out.println("服务端回复：" + rs);
+        if (data instanceof Collection)
+        {
+            Collection c = (Collection) data;
+        }
     }
 }

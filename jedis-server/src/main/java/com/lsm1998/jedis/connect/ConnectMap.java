@@ -13,14 +13,19 @@ public class ConnectMap
     public ConnectMap()
     {
         this.map = new HashMap<>();
-        this.factory = new ConnectFactoryImpl().build();
+        this.factory = new ConnectFactoryImpl();
     }
 
     public void joinConnect(SocketChannel channel)
     {
         RedisClientConnect connect = this.factory.getConnect();
-        connect.channel=channel;
+        connect.channel = channel;
         this.map.put(channel, connect);
+    }
+
+    public void leaveConnect(SocketChannel channel)
+    {
+        this.map.remove(channel);
     }
 
     public RedisClientConnect getClientConnect(SocketChannel channel)

@@ -6,7 +6,7 @@ package com.lsm1998.jedis.common.utils;
 
 import java.lang.reflect.Array;
 
-public class ArraysUtils
+public class ArraysUtil
 {
     /**
      * 删除数组元素

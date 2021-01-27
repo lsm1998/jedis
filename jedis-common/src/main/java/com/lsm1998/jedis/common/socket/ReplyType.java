@@ -14,4 +14,6 @@ public enum ReplyType
     REPLY_LONG,
     // 错误
     REPLY_ERROR,
+    // 空值
+    REPLY_NULL,
 }

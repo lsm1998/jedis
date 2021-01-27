@@ -2,7 +2,6 @@ package com.lsm1998.jedis;
 
 import com.lsm1998.jedis.config.RedisConfig;
 import com.lsm1998.jedis.server.RedisDBServer;
-import com.lsm1998.jedis.server.RedisDBServerBuild;
 import com.lsm1998.jedis.server.RedisServer;
 import com.lsm1998.jedis.server.RedisServerBuild;
 
@@ -16,7 +15,7 @@ public class JedisApplication
 
         config.load();
 
-        RedisDBServer server = new RedisDBServerBuild().build();
+        RedisDBServer server = RedisDBServer.getInstance();
         server.initDB();
 
         RedisServer redisServer = new RedisServerBuild().build();

@@ -1,4 +1,4 @@
-import com.lsm1998.jedis.common.utils.ArraysUtils;
+import com.lsm1998.jedis.common.utils.ArraysUtil;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -14,6 +14,6 @@ public class ArraysTest
     public void arraysTest()
     {
         Integer[] array = new Integer[]{1, 2, 3, 4, 5};
-        System.out.println(Arrays.toString(ArraysUtils.append(5, 100, array, Integer.class)));
+        System.out.println(Arrays.toString(ArraysUtil.append(5, 100, array, Integer.class)));
     }
 }

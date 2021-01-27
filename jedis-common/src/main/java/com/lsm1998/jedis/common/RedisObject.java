@@ -1,5 +1,8 @@
 package com.lsm1998.jedis.common;
 
+import lombok.Data;
+
+@Data
 public class RedisObject
 {
     // 数据类型
@@ -16,4 +19,14 @@ public class RedisObject
 
     // 指向实际值
     private Object ptr;
+
+    public static RedisObject of(RedisType type, EncodingType encoding, Object ptr)
+    {
+        RedisObject object = new RedisObject();
+        object.type = type;
+        object.encoding = encoding;
+        object.ptr = ptr;
+        object.lru = System.currentTimeMillis();
+        return object;
+    }
 }

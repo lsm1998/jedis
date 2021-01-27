@@ -4,13 +4,16 @@
  */
 package com.lsm1998.jedis.server.handler;
 
+import com.lsm1998.jedis.cmd.RedisCommandHandler;
 import com.lsm1998.jedis.common.socket.ReplyData;
 import com.lsm1998.jedis.common.socket.ReplyType;
 import com.lsm1998.jedis.common.utils.BitObjectUtil;
 import com.lsm1998.jedis.connect.ConnectMap;
+import com.lsm1998.jedis.connect.RedisClientConnect;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
@@ -71,14 +74,32 @@ public class ConnectionHandler
 
     private void handlerData(String command, SocketChannel dest) throws IOException
     {
+        RedisClientConnect client = connectMap.getClientConnect(dest);
+        if (client == null)
+        {
+            throw new RuntimeException("client is null!");
+        }
         System.out.println("收到消息：" + command);
-        byte[] bytes = BitObjectUtil.objectToBytes(ReplyData.of(ReplyType.REPLY_STRING, "hello")).orElse(new byte[]{});
+        ReplyData<Serializable> replyData;
+        if (!client.parse(command))
+        {
+            replyData = ReplyData.of(ReplyType.REPLY_ERROR, "参数解析错误");
+        } else
+        {
+            replyData = RedisCommandHandler.call(client);
+        }
+        if (replyData == null)
+        {
+            return;
+        }
+        byte[] bytes = BitObjectUtil.objectToBytes(replyData).orElse(new byte[]{});
         dest.write(ByteBuffer.wrap(bytes));
     }
 
     private void socketClose(SelectionKey key, SocketChannel socketChannel) throws IOException
     {
         key.cancel();
+        connectMap.leaveConnect(socketChannel);
         socketChannel.close();
     }
 }

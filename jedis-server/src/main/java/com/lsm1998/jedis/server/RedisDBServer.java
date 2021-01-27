@@ -5,7 +5,14 @@ import com.lsm1998.jedis.config.RedisConfig;
 
 public class RedisDBServer
 {
-    protected RedisDBServer()
+    private static final RedisDBServer server = new RedisDBServer();
+
+    public static RedisDBServer getInstance()
+    {
+        return server;
+    }
+
+    private RedisDBServer()
     {
     }
 
@@ -27,6 +34,7 @@ public class RedisDBServer
     private void initDatabases()
     {
         this.dbNum = config.getDatabases();
+        this.redisDB = new RedisDB[this.dbNum];
         for (int i = 0; i < this.dbNum; i++)
         {
             redisDB[i] = new RedisDB();

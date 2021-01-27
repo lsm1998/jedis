@@ -1,15 +1,18 @@
 package com.lsm1998.jedis.connect;
 
+import com.lsm1998.jedis.server.RedisDBServer;
+
 public class ConnectFactoryImpl implements ConnectFactory
 {
+    protected ConnectFactoryImpl()
+    {
+    }
+
     @Override
     public RedisClientConnect getConnect()
     {
-        return null;
-    }
-
-    public ConnectFactory build()
-    {
-        return this;
+        RedisClientConnect client = new RedisClientConnect();
+        client.setRedisDBServer(RedisDBServer.getInstance());
+        return client;
     }
 }
