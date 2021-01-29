@@ -2,6 +2,7 @@ package com.lsm1998.jedis.common.struct.list;
 
 /**
  * 链表节点
+ *
  * @param <E>
  */
 public class ListNode<E>

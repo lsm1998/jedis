@@ -13,9 +13,16 @@ import java.util.Scanner;
 
 public class CmdRead
 {
-    public static void commandHandler(JedisClientSocket socket) throws IOException
+    public static void commandHandler(JedisClientSocket socket)
     {
-        socket.connect();
+        try
+        {
+            socket.connect();
+        } catch (IOException e)
+        {
+            System.err.println("连接服务端失败！！！");
+            return;
+        }
         Scanner scanner = new Scanner(System.in);
         while (true)
         {
@@ -75,7 +82,8 @@ public class CmdRead
     {
         if (data instanceof Collection)
         {
-            Collection c = (Collection) data;
+            Collection<?> c = (Collection<?>) data;
+            c.forEach(System.out::println);
         }
     }
 }

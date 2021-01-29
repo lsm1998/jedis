@@ -13,17 +13,7 @@ public class GetCommand implements RedisCommand
     public Serializable handler(RedisClientConnect connect, String key, String[] args)
     {
         RedisDB redisDB = connect.getRedisDB();
-        RedisObject redisObject = redisDB.get(args[0]);
-//        switch (redisObject.getEncoding())
-//        {
-//            case REDIS_ENCODING_RAW:
-//            case REDIS_ENCODING_EMBSTR:
-//
-//                break;
-//            case REDIS_ENCODING_INT:
-//                Object ptr = redisObject.getPtr();
-//                break;
-//        }
+        RedisObject redisObject = redisDB.dict.get(args[0]);
         if (redisObject == null) return null;
         return (Serializable) redisObject.getPtr();
     }

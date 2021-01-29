@@ -1,14 +1,72 @@
-/**
- * 作者：刘时明
- * 时间：2021/1/26
- */
 package com.lsm1998.jedis.server;
 
+import com.lsm1998.jedis.common.db.RedisDB;
+import com.lsm1998.jedis.config.RedisConfig;
+import com.lsm1998.jedis.constant.SysProperties;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
-public interface RedisServer
+public class RedisServer
 {
-    void start() throws IOException;
+    private static final RedisServer server = new RedisServer();
 
-    void stop() throws IOException;
+    public static RedisServer getInstance()
+    {
+        return server;
+    }
+
+    private RedisServer()
+    {
+    }
+
+    private RedisConfig.DefRedisConfig config;
+
+    // 数据库数量
+    private int dbNum;
+
+    // 数据库实例数组
+    private RedisDB[] redisDB;
+
+    public void initDB()
+    {
+        this.config = RedisConfig.defRedisConfig;
+
+        this.initDatabases();
+
+        this.showBanner();
+    }
+
+    private void showBanner()
+    {
+        try (InputStream inputStream = RedisServer.class.getResourceAsStream(SysProperties.BANNER_NAME);
+             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream)))
+        {
+            String line;
+            while ((line = reader.readLine()) != null)
+            {
+                System.out.println(line);
+            }
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private void initDatabases()
+    {
+        this.dbNum = config.getDatabases();
+        this.redisDB = new RedisDB[this.dbNum];
+        for (int i = 0; i < this.dbNum; i++)
+        {
+            redisDB[i] = new RedisDB(i);
+        }
+    }
+
+    public RedisDB getRedisDB(int index)
+    {
+        return this.redisDB[index];
+    }
 }

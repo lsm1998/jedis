@@ -1,6 +1,6 @@
 package com.lsm1998.jedis.connect;
 
-import com.lsm1998.jedis.server.RedisDBServer;
+import com.lsm1998.jedis.server.RedisServer;
 
 public class ConnectFactoryImpl implements ConnectFactory
 {
@@ -12,7 +12,7 @@ public class ConnectFactoryImpl implements ConnectFactory
     public RedisClientConnect getConnect()
     {
         RedisClientConnect client = new RedisClientConnect();
-        client.setRedisDBServer(RedisDBServer.getInstance());
+        client.setRedisServer(RedisServer.getInstance());
         return client;
     }
 }

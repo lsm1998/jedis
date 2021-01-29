@@ -4,6 +4,9 @@
  */
 package com.lsm1998.jedis.cmd;
 
+import com.lsm1998.jedis.common.RedisObject;
+import com.lsm1998.jedis.common.RedisType;
+
 public class CommandUtil
 {
     public static Integer string2Int(String val)
@@ -16,5 +19,10 @@ public class CommandUtil
         {
             return null;
         }
+    }
+
+    public static boolean checkType(RedisObject object, RedisType type)
+    {
+        return object.getType() == type;
     }
 }

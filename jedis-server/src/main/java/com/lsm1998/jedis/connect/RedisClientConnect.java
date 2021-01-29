@@ -2,7 +2,7 @@ package com.lsm1998.jedis.connect;
 
 import com.lsm1998.jedis.common.db.RedisDB;
 import com.lsm1998.jedis.common.utils.ArraysUtil;
-import com.lsm1998.jedis.server.RedisDBServer;
+import com.lsm1998.jedis.server.RedisServer;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +15,7 @@ public class RedisClientConnect
 
     // 数据库
     @Setter
-    private RedisDBServer redisDBServer;
+    private RedisServer redisServer;
 
     protected SocketChannel channel;
 
@@ -38,7 +38,7 @@ public class RedisClientConnect
 
     public RedisDB getRedisDB()
     {
-        return this.redisDBServer.getRedisDB(this.dbIndex);
+        return this.redisServer.getRedisDB(this.dbIndex);
     }
 
     public boolean parse(String command)

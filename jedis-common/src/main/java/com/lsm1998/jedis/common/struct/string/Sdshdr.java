@@ -4,6 +4,8 @@ import lombok.Data;
 
 /**
  * redis使用sdshdr来表示一个字符串
+ *
+ * Java语言自带String，直接使用String存储了
  */
 @Data
 public class Sdshdr

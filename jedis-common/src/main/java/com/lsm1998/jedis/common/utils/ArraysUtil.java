@@ -32,6 +32,21 @@ public class ArraysUtil
         return newArray;
     }
 
+    public static <E> E[] removeOfRange(int start, int end, E[] array, Class<?> clazz)
+    {
+        if (start < 0 || end >= array.length || start > end)
+        {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        E[] newArray = creatArray(clazz, array.length - 1 - (end - start));
+        System.arraycopy(array, 0, newArray, 0, start);
+        if (end != array.length - 1)
+        {
+            System.arraycopy(array, end + 1, newArray, start, array.length - end - 1);
+        }
+        return newArray;
+    }
+
     /**
      * 追加数组元素
      *

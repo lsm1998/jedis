@@ -4,15 +4,15 @@
  */
 package com.lsm1998.jedis.cmd;
 
-import com.lsm1998.jedis.cmd.impl.SelectCommand;
+import com.lsm1998.jedis.cmd.impl.key.KeysCommand;
+import com.lsm1998.jedis.cmd.impl.key.SelectCommand;
 import com.lsm1998.jedis.cmd.impl.string.GetCommand;
 import com.lsm1998.jedis.cmd.impl.string.SetCommand;
 import com.lsm1998.jedis.cmd.proxy.ProxyInstanceFactory;
+import com.lsm1998.jedis.common.exception.RedisException;
 import com.lsm1998.jedis.common.socket.ReplyData;
 import com.lsm1998.jedis.common.socket.ReplyType;
 import com.lsm1998.jedis.connect.RedisClientConnect;
-import com.lsm1998.jedis.exception.ArgsException;
-import com.lsm1998.jedis.exception.RedisException;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -28,6 +28,7 @@ public class RedisCommandHandler
         commandMap.put("select", ProxyInstanceFactory.getInstance(new SelectCommand()));
         commandMap.put("set", ProxyInstanceFactory.getInstance(new SetCommand()));
         commandMap.put("get", ProxyInstanceFactory.getInstance(new GetCommand()));
+        commandMap.put("keys", ProxyInstanceFactory.getInstance(new KeysCommand()));
     }
 
     public static <E extends Serializable> ReplyData<E> call(RedisClientConnect connect)

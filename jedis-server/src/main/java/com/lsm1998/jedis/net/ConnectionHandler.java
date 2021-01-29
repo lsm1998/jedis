@@ -2,7 +2,7 @@
  * 作者：刘时明
  * 时间：2021/1/26
  */
-package com.lsm1998.jedis.server.handler;
+package com.lsm1998.jedis.net;
 
 import com.lsm1998.jedis.cmd.RedisCommandHandler;
 import com.lsm1998.jedis.common.socket.ReplyData;
@@ -79,7 +79,6 @@ public class ConnectionHandler
         {
             throw new RuntimeException("client is null!");
         }
-        System.out.println("收到消息：" + command);
         ReplyData<Serializable> replyData;
         if (!client.parse(command))
         {

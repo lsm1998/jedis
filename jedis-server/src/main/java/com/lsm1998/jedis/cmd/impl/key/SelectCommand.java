@@ -1,4 +1,4 @@
-package com.lsm1998.jedis.cmd.impl;
+package com.lsm1998.jedis.cmd.impl.key;
 
 import com.lsm1998.jedis.cmd.RedisCommand;
 import com.lsm1998.jedis.connect.RedisClientConnect;

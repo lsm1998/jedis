@@ -1,9 +1,9 @@
 package com.lsm1998.jedis;
 
 import com.lsm1998.jedis.config.RedisConfig;
-import com.lsm1998.jedis.server.RedisDBServer;
 import com.lsm1998.jedis.server.RedisServer;
-import com.lsm1998.jedis.server.RedisServerBuild;
+import com.lsm1998.jedis.net.RedisNetServer;
+import com.lsm1998.jedis.net.RedisNetServerBuild;
 
 import java.io.IOException;
 
@@ -15,13 +15,13 @@ public class JedisApplication
 
         config.load();
 
-        RedisDBServer server = RedisDBServer.getInstance();
+        RedisServer server = RedisServer.getInstance();
         server.initDB();
 
-        RedisServer redisServer = new RedisServerBuild().build();
+        RedisNetServer redisNetServer = new RedisNetServerBuild().build();
         try
         {
-            redisServer.start();
+            redisNetServer.start();
         } catch (IOException e)
         {
             e.printStackTrace();

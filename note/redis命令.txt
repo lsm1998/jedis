@@ -1,4 +1,5 @@
-del
-exists
-expire
-keys
+key
+    del
+    exists
+    expire
+    keys

@@ -2,10 +2,9 @@
  * 作者：刘时明
  * 时间：2021/1/26
  */
-package com.lsm1998.jedis.server;
+package com.lsm1998.jedis.net;
 
 import com.lsm1998.jedis.config.RedisConfig;
-import com.lsm1998.jedis.server.handler.ConnectionHandler;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -15,12 +14,12 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 
 @Slf4j
-public class RedisServerImpl implements RedisServer
+public class RedisNetServerImpl implements RedisNetServer
 {
     private Selector selector;
     private final ConnectionHandler handler;
 
-    public RedisServerImpl()
+    public RedisNetServerImpl()
     {
         this.handler = new ConnectionHandler();
     }

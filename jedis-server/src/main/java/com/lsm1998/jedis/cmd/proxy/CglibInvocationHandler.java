@@ -1,7 +1,7 @@
 package com.lsm1998.jedis.cmd.proxy;
 
 import com.lsm1998.jedis.cmd.RedisCommand;
-import com.lsm1998.jedis.exception.ArgsException;
+import com.lsm1998.jedis.common.exception.ArgsException;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
