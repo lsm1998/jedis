@@ -5,6 +5,9 @@
 package com.lsm1998.jedis.net;
 
 import com.lsm1998.jedis.config.RedisConfig;
+import com.lsm1998.jedis.event.EventBean;
+import com.lsm1998.jedis.event.EventPublish;
+import com.lsm1998.jedis.event.EventType;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -19,9 +22,12 @@ public class RedisNetServerImpl implements RedisNetServer
     private Selector selector;
     private final ConnectionHandler handler;
 
+    private final EventPublish publish;
+
     public RedisNetServerImpl()
     {
         this.handler = new ConnectionHandler();
+        this.publish = EventPublish.getInstance();
     }
 
     @Override
@@ -40,7 +46,7 @@ public class RedisNetServerImpl implements RedisNetServer
         // 设置非阻塞
         server.configureBlocking(false);
         server.register(selector, SelectionKey.OP_ACCEPT);
-        log.info("Redis start! port=[{}]", port);
+        publish.notify(EventBean.of(EventType.EVENT_START, port));
         while (selector.select() > 0)
         {
             for (SelectionKey key : selector.selectedKeys())
@@ -63,6 +69,7 @@ public class RedisNetServerImpl implements RedisNetServer
     @Override
     public void stop() throws IOException
     {
-
+        handler.close();
+        selector.close();
     }
 }

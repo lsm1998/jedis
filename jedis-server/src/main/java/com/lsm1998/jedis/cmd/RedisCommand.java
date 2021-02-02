@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 public interface RedisCommand
 {
-    Serializable handler(RedisClientConnect connect, String cmd, String[] args) throws ExecuteException;
+    Serializable handler(RedisClientConnect connect, String key, String[] args) throws ExecuteException;
 
     String argsCond();
 }

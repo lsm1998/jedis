@@ -72,6 +72,11 @@ public class ConnectionHandler
         this.handlerData(command.toString(), socketChannel);
     }
 
+    public void close() throws IOException
+    {
+
+    }
+
     private void handlerData(String command, SocketChannel dest) throws IOException
     {
         RedisClientConnect client = connectMap.getClientConnect(dest);

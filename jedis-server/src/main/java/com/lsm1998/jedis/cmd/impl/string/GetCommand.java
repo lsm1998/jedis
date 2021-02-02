@@ -13,7 +13,7 @@ public class GetCommand implements RedisCommand
     public Serializable handler(RedisClientConnect connect, String key, String[] args)
     {
         RedisDB redisDB = connect.getRedisDB();
-        RedisObject redisObject = redisDB.dict.get(args[0]);
+        RedisObject redisObject = redisDB.dict.get(key);
         if (redisObject == null) return null;
         return (Serializable) redisObject.getPtr();
     }
@@ -21,6 +21,6 @@ public class GetCommand implements RedisCommand
     @Override
     public String argsCond()
     {
-        return "1";
+        return "0";
     }
 }

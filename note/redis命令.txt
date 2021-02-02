@@ -1,5 +1,46 @@
 key
     del
+    DUMP
     exists
-    expire
+    EXPIRE
+    EXPIREAT
     keys
+    MIGRATE
+    MOVE
+    OBJECT
+    PERSIST
+    PEXPIRE
+    PEXPIREAT
+    PTTL
+    RANDOMKEY
+    RENAME
+    RENAMENX
+    RESTORE
+    SORT
+    ttl
+    TYPE
+    SCAN
+
+string
+    append
+    BITCOUNT
+    BITOP
+    DECR
+    DECRBY
+    get
+    GETBIT
+    GETRANGE
+    GETSET
+    INCR
+    INCRBY
+    INCRBYFLOAT
+    MGET
+    MSET
+    MSETNX
+    PSETEX
+    set
+    SETBIT
+    SETEX
+    SETNX
+    SETRANGE
+    strlen

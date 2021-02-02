@@ -35,24 +35,6 @@ public class RedisServer
         this.config = RedisConfig.defRedisConfig;
 
         this.initDatabases();
-
-        this.showBanner();
-    }
-
-    private void showBanner()
-    {
-        try (InputStream inputStream = RedisServer.class.getResourceAsStream(SysProperties.BANNER_NAME);
-             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream)))
-        {
-            String line;
-            while ((line = reader.readLine()) != null)
-            {
-                System.out.println(line);
-            }
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
     }
 
     private void initDatabases()

@@ -1,25 +1,17 @@
 package com.lsm1998.jedis.cmd.impl.key;
 
+import com.lsm1998.jedis.cmd.BaseRedisCommand;
 import com.lsm1998.jedis.cmd.RedisCommand;
+import com.lsm1998.jedis.common.exception.ExecuteException;
 import com.lsm1998.jedis.connect.RedisClientConnect;
 
 import java.io.Serializable;
 
-public class SelectCommand implements RedisCommand
+public class SelectCommand extends BaseRedisCommand
 {
     @Override
-    public Serializable handler(RedisClientConnect connect, String key, String[] args)
+    public Serializable baseHandler(RedisClientConnect connect, String args) throws ExecuteException
     {
-        if (args.length != 1)
-        {
-            return -1;
-        }
-        return connect.selectDB(Integer.parseInt(args[0]));
-    }
-
-    @Override
-    public String argsCond()
-    {
-        return "1";
+        return connect.selectDB(Integer.parseInt(args));
     }
 }

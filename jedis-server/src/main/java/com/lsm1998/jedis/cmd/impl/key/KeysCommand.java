@@ -1,7 +1,9 @@
 package com.lsm1998.jedis.cmd.impl.key;
 
+import com.lsm1998.jedis.cmd.BaseRedisCommand;
 import com.lsm1998.jedis.cmd.RedisCommand;
 import com.lsm1998.jedis.common.db.RedisDB;
+import com.lsm1998.jedis.common.exception.ExecuteException;
 import com.lsm1998.jedis.connect.RedisClientConnect;
 
 import java.io.Serializable;
@@ -10,12 +12,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class KeysCommand implements RedisCommand
+public class KeysCommand extends BaseRedisCommand
 {
     @Override
-    public Serializable handler(RedisClientConnect connect, String key, String[] args)
+    public Serializable baseHandler(RedisClientConnect connect, String args) throws ExecuteException
     {
-        String pattern = args[0].replace("*",".*.");
+        String pattern = args.replace("*",".*.");
         ArrayList<String> result = new ArrayList<>();
         RedisDB redisDB = connect.getRedisDB();
         redisDB.dict.forEach((k, v) ->
@@ -26,11 +28,5 @@ public class KeysCommand implements RedisCommand
             }
         });
         return result;
-    }
-
-    @Override
-    public String argsCond()
-    {
-        return "1";
     }
 }

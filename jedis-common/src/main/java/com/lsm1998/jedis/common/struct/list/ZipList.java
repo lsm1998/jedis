@@ -9,5 +9,15 @@ package com.lsm1998.jedis.common.struct.list;
  */
 public class ZipList
 {
+    private static final byte ZIP_LIST_END = 0xF;
 
+    private int zlBytes;
+
+    private int zlTail;
+
+    private short zlLen;
+
+    private ZLenTry[] entry;
+
+    private byte zlEnd;
 }

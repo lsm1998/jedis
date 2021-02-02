@@ -8,14 +8,14 @@ import java.io.Serializable;
 public class HSetCommand implements RedisCommand
 {
     @Override
-    public String argsCond()
-    {
-        return "+2";
-    }
-
-    @Override
     public Serializable handler(RedisClientConnect connect, String key, String[] args)
     {
         return null;
+    }
+
+    @Override
+    public String argsCond()
+    {
+        return "+1";
     }
 }

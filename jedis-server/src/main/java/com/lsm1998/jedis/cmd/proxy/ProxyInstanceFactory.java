@@ -1,5 +1,6 @@
 package com.lsm1998.jedis.cmd.proxy;
 
+import com.lsm1998.jedis.cmd.RedisCommand;
 import net.sf.cglib.proxy.Enhancer;
 
 /**
@@ -10,7 +11,7 @@ import net.sf.cglib.proxy.Enhancer;
  **/
 public class ProxyInstanceFactory
 {
-    public static <T> T getInstance(Object instance)
+    public static <T> T getInstance(RedisCommand instance)
     {
         CglibInvocationHandler handler = new CglibInvocationHandler(instance);
         Enhancer enhancer = new Enhancer();

@@ -1,7 +1,10 @@
 package com.lsm1998.jedis.cmd.proxy;
 
+import com.lsm1998.jedis.cmd.BaseRedisCommand;
 import com.lsm1998.jedis.cmd.RedisCommand;
 import com.lsm1998.jedis.common.exception.ArgsException;
+import com.lsm1998.jedis.common.utils.ArraysUtil;
+import com.lsm1998.jedis.connect.RedisClientConnect;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
@@ -15,9 +18,9 @@ import java.lang.reflect.Method;
  **/
 public class CglibInvocationHandler implements MethodInterceptor
 {
-    private final Object target;
+    private final RedisCommand target;
 
-    public CglibInvocationHandler(Object target)
+    public CglibInvocationHandler(RedisCommand target)
     {
         this.target = target;
     }
@@ -25,9 +28,17 @@ public class CglibInvocationHandler implements MethodInterceptor
     @Override
     public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable
     {
-        if (target instanceof RedisCommand && method.getName().equals("handler") && !checkArgs(objects))
+        if (method.getName().equals("handler"))
         {
-            throw new ArgsException("参数校验不通过");
+            if (!setKey(objects))
+            {
+                throw new ArgsException("参数错误");
+            }
+            if (!checkArgs(objects))
+            {
+                throw new ArgsException("参数数量校验不通过");
+            }
+            removeExpireKey(objects);
         }
         try
         {
@@ -39,16 +50,52 @@ public class CglibInvocationHandler implements MethodInterceptor
         return null;
     }
 
+    /**
+     * 参数数量校验
+     *
+     * @param objects
+     * @return
+     */
     private boolean checkArgs(Object[] objects)
     {
         // 第三项是args
         String[] args = (String[]) objects[2];
-        RedisCommand command = (RedisCommand) this.target;
-        String cond = command.argsCond();
+        String cond = this.target.argsCond();
         if (cond.startsWith("+"))
         {
             return args.length >= Integer.parseInt(cond.substring(1));
         }
         return args.length == Integer.parseInt(cond);
+    }
+
+    /**
+     * 设置key
+     *
+     * @param objects
+     * @return
+     */
+    private boolean setKey(Object[] objects)
+    {
+        String[] args = (String[]) objects[2];
+        // 设置key
+        objects[1] = args[0];
+        objects[2] = args.length == 1 ? new String[]{} : ArraysUtil.remove(0, args, String.class);
+        return true;
+    }
+
+    private void removeExpireKey(Object[] objects)
+    {
+        if (this.target instanceof BaseRedisCommand)
+        {
+            return;
+        }
+        String key = (String) objects[1];
+        RedisClientConnect connect = (RedisClientConnect) objects[0];
+        Long expireTime = connect.getRedisDB().expires.get(key);
+        if (expireTime != null && expireTime < System.currentTimeMillis())
+        {
+            connect.getRedisDB().expires.remove(key);
+            connect.getRedisDB().dict.remove(key);
+        }
     }
 }

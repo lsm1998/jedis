@@ -16,10 +16,10 @@ import static com.lsm1998.jedis.common.RedisType.REDIS_STRING;
 public class SetCommand implements RedisCommand
 {
     @Override
-    public Serializable handler(RedisClientConnect connect, String cmd, String[] args) throws ExecuteException
+    public Serializable handler(RedisClientConnect connect, String key, String[] args) throws ExecuteException
     {
         RedisDB redisDB = connect.getRedisDB();
-        RedisObject redisObject = redisDB.dict.get(args[0]);
+        RedisObject redisObject = redisDB.dict.get(key);
         if (redisObject == null)
         {
             redisObject = new RedisObject();
@@ -30,8 +30,8 @@ public class SetCommand implements RedisCommand
                 throw new ExecuteException("数据类型错误，目标key不是String类型");
             }
         }
-        setRedisObject(redisObject, args[1]);
-        redisDB.dict.put(args[0], redisObject);
+        setRedisObject(redisObject, args[0]);
+        redisDB.dict.put(key, redisObject);
         return 1;
     }
 
@@ -63,6 +63,6 @@ public class SetCommand implements RedisCommand
     @Override
     public String argsCond()
     {
-        return "2";
+        return "1";
     }
 }
