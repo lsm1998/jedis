@@ -123,5 +123,9 @@ public class RedisConfig
         private String appendOnly = "no";
 
         private String appendFilename = "appendonly.aof";
+
+        private String storage = "jdk";
+
+        private String storageFilename = "db.storage";
     }
 }

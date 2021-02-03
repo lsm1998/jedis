@@ -3,10 +3,11 @@ package com.lsm1998.jedis.common.db;
 import com.lsm1998.jedis.common.RedisObject;
 import com.lsm1998.jedis.common.struct.Dict;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RedisDB
+public class RedisDB implements Serializable
 {
     // 数据库id
     public int id;

@@ -4,12 +4,12 @@
  */
 package com.lsm1998.jedis.common.struct.set;
 
-import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * hash table
  */
-public class HT extends HashMap<String, String>
+public class HT extends HashSet<DictEntry>
 {
 
 }

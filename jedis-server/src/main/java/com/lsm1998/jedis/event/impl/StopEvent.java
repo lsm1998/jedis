@@ -3,6 +3,7 @@ package com.lsm1998.jedis.event.impl;
 import com.lsm1998.jedis.event.AbstractObserver;
 import com.lsm1998.jedis.event.EventBean;
 import com.lsm1998.jedis.event.EventType;
+import com.lsm1998.jedis.server.RedisServer;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Date;
@@ -18,6 +19,9 @@ public class StopEvent extends AbstractObserver
     @Override
     public <E> void eventHandler(EventBean<E> event)
     {
+        RedisServer redisServer = RedisServer.getInstance();
+        redisServer.save();
+
         Date now = new Date();
         Date stopDate = (Date) event.getData();
         long runTime = now.getTime() - stopDate.getTime();

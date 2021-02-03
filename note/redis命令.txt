@@ -44,3 +44,20 @@ string
     SETNX
     SETRANGE
     strlen
+
+set
+    sadd
+    scard
+    sdiff
+    SDIFFSTORE
+    sinter
+    SINTERSTORE
+    SISMEMBER
+    SMEMBERS
+    SMOVE
+    spop
+    SRANDMEMBER
+    SREM
+    SUNION
+    SUNIONSTORE
+    sscan

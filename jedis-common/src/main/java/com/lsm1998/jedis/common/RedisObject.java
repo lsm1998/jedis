@@ -2,8 +2,10 @@ package com.lsm1998.jedis.common;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class RedisObject
+public class RedisObject implements Serializable
 {
     // 数据类型
     private RedisType type;

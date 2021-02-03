@@ -1,6 +1,6 @@
 package com.lsm1998.jedis.cmd.impl.string;
 
-import com.lsm1998.jedis.cmd.CommandUtil;
+import com.lsm1998.jedis.common.utils.CommandUtil;
 import com.lsm1998.jedis.cmd.RedisCommand;
 import com.lsm1998.jedis.common.EncodingType;
 import com.lsm1998.jedis.common.RedisObject;
@@ -40,7 +40,7 @@ public class SetCommand implements RedisCommand
         val.setLru(System.currentTimeMillis());
         val.setType(REDIS_STRING);
         // 尝试整数编码
-        Integer intVal = CommandUtil.string2Int(value);
+        Long intVal = CommandUtil.string2Int(value);
         if (intVal != null)
         {
             val.setEncoding(EncodingType.REDIS_ENCODING_INT);

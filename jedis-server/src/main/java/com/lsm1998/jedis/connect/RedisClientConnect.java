@@ -28,6 +28,10 @@ public class RedisClientConnect
 
     public int selectDB(int index)
     {
+        if (index < 0 || index >= redisServer.getDbNum())
+        {
+            return -1;
+        }
         if (index == this.dbIndex)
         {
             return 0;
