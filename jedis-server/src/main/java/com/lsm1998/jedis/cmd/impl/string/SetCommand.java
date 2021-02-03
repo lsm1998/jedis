@@ -1,5 +1,6 @@
 package com.lsm1998.jedis.cmd.impl.string;
 
+import com.lsm1998.jedis.common.RedisType;
 import com.lsm1998.jedis.common.utils.CommandUtil;
 import com.lsm1998.jedis.cmd.RedisCommand;
 import com.lsm1998.jedis.common.EncodingType;
@@ -23,13 +24,14 @@ public class SetCommand implements RedisCommand
         if (redisObject == null)
         {
             redisObject = new RedisObject();
-        } else
-        {
-            if (!CommandUtil.checkType(redisObject, REDIS_STRING))
-            {
-                throw new ExecuteException("数据类型错误，目标key不是String类型");
-            }
         }
+//        else
+//        {
+//            if (!CommandUtil.checkType(redisObject, REDIS_STRING))
+//            {
+//                throw new ExecuteException("数据类型错误，目标key不是String类型");
+//            }
+//        }
         setRedisObject(redisObject, args[0]);
         redisDB.dict.put(key, redisObject);
         return 1;
@@ -64,5 +66,11 @@ public class SetCommand implements RedisCommand
     public String argsCond()
     {
         return "1";
+    }
+
+    @Override
+    public RedisType typeCond()
+    {
+        return REDIS_STRING;
     }
 }

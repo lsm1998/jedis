@@ -4,6 +4,7 @@
  */
 package com.lsm1998.jedis.cmd;
 
+import com.lsm1998.jedis.common.RedisType;
 import com.lsm1998.jedis.common.exception.ExecuteException;
 import com.lsm1998.jedis.connect.RedisClientConnect;
 
@@ -24,6 +25,12 @@ public abstract class BaseRedisCommand implements RedisCommand
     public Serializable handler(RedisClientConnect connect, String key, String[] args) throws ExecuteException
     {
         return this.baseHandler(connect, key);
+    }
+
+    @Override
+    public RedisType typeCond()
+    {
+        return null;
     }
 
     public abstract Serializable baseHandler(RedisClientConnect connect, String args) throws ExecuteException;

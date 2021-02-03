@@ -1,34 +1,29 @@
 /**
  * 作者：刘时明
- * 时间：2021/2/1
+ * 时间：2021/2/3
  */
 package com.lsm1998.jedis.cmd.impl.key;
 
 import com.lsm1998.jedis.cmd.RedisCommand;
+import com.lsm1998.jedis.common.RedisObject;
 import com.lsm1998.jedis.common.RedisType;
-import com.lsm1998.jedis.common.db.RedisDB;
 import com.lsm1998.jedis.common.exception.ExecuteException;
 import com.lsm1998.jedis.connect.RedisClientConnect;
 
 import java.io.Serializable;
 
 /**
- * 当 key 不存在时，返回 -2
- * 当 key 存在但没有设置剩余生存时间时，返回 -1
- * 否则，以秒为单位，返回 key 的剩余生存时间
+ * 和Redis标准命令有差异
+ * <p>
+ * 等价于 object encoding
  */
-public class TtlCommand implements RedisCommand
+public class ObjectCommand implements RedisCommand
 {
     @Override
     public Serializable handler(RedisClientConnect connect, String key, String[] args) throws ExecuteException
     {
-        RedisDB redisDB = connect.getRedisDB();
-        if (!redisDB.dict.containsKey(key))
-        {
-            return -2;
-        }
-        Long ttl = redisDB.expires.get(key);
-        return ttl == null ? -1 : System.currentTimeMillis() - ttl / 1000;
+        RedisObject object = connect.getRedisDB().dict.get(key);
+        return object == null ? null : object.getType();
     }
 
     @Override

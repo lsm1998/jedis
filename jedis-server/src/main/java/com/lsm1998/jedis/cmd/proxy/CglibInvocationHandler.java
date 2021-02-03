@@ -2,7 +2,10 @@ package com.lsm1998.jedis.cmd.proxy;
 
 import com.lsm1998.jedis.cmd.BaseRedisCommand;
 import com.lsm1998.jedis.cmd.RedisCommand;
+import com.lsm1998.jedis.common.RedisObject;
+import com.lsm1998.jedis.common.RedisType;
 import com.lsm1998.jedis.common.exception.ArgsException;
+import com.lsm1998.jedis.common.exception.TypeException;
 import com.lsm1998.jedis.common.utils.ArraysUtil;
 import com.lsm1998.jedis.connect.RedisClientConnect;
 import net.sf.cglib.proxy.MethodInterceptor;
@@ -38,6 +41,10 @@ public class CglibInvocationHandler implements MethodInterceptor
             {
                 throw new ArgsException("参数数量校验不通过");
             }
+            if (!checkType(objects))
+            {
+                throw new TypeException("类型校验不通过");
+            }
             removeExpireKey(objects);
         }
         try
@@ -68,6 +75,23 @@ public class CglibInvocationHandler implements MethodInterceptor
         return args.length == Integer.parseInt(cond);
     }
 
+    private boolean checkType(Object[] objects)
+    {
+        RedisType redisType = this.target.typeCond();
+        if (redisType == null)
+        {
+            return true;
+        }
+        String key = (String) objects[1];
+        RedisClientConnect connect = (RedisClientConnect) objects[0];
+        RedisObject object = connect.getRedisDB().dict.get(key);
+        if (object == null)
+        {
+            return true;
+        }
+        return object.getType() == redisType;
+    }
+
     /**
      * 设置key
      *
@@ -83,6 +107,11 @@ public class CglibInvocationHandler implements MethodInterceptor
         return true;
     }
 
+    /**
+     * 删除过期key
+     *
+     * @param objects
+     */
     private void removeExpireKey(Object[] objects)
     {
         if (this.target instanceof BaseRedisCommand)

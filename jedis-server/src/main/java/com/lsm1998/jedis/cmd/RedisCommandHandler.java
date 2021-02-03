@@ -4,6 +4,7 @@
  */
 package com.lsm1998.jedis.cmd;
 
+import com.lsm1998.jedis.cmd.impl.hash.HSetCommand;
 import com.lsm1998.jedis.cmd.impl.key.*;
 import com.lsm1998.jedis.cmd.impl.set.SAddCommand;
 import com.lsm1998.jedis.cmd.impl.string.AppendCommand;
@@ -27,18 +28,33 @@ public class RedisCommandHandler
 
     static
     {
+        /**
+         * key
+         */
         commandMap.put("select", ProxyInstanceFactory.getInstance(new SelectCommand()));
         commandMap.put("keys", ProxyInstanceFactory.getInstance(new KeysCommand()));
         commandMap.put("ttl", ProxyInstanceFactory.getInstance(new TtlCommand()));
         commandMap.put("del", ProxyInstanceFactory.getInstance(new DelCommand()));
         commandMap.put("exists", ProxyInstanceFactory.getInstance(new ExistsCommand()));
+        commandMap.put("object", ProxyInstanceFactory.getInstance(new ObjectCommand()));
 
+        /**
+         * string
+         */
         commandMap.put("set", ProxyInstanceFactory.getInstance(new SetCommand()));
         commandMap.put("get", ProxyInstanceFactory.getInstance(new GetCommand()));
         commandMap.put("append", ProxyInstanceFactory.getInstance(new AppendCommand()));
         commandMap.put("strlen", ProxyInstanceFactory.getInstance(new StrlenCommand()));
 
+        /**
+         * set
+         */
         commandMap.put("sadd", ProxyInstanceFactory.getInstance(new SAddCommand()));
+
+        /**
+         * hash
+         */
+        commandMap.put("hset", ProxyInstanceFactory.getInstance(new HSetCommand()));
     }
 
     public static <E extends Serializable> ReplyData<E> call(RedisClientConnect connect)

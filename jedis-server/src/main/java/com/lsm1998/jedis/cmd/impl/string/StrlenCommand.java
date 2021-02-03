@@ -22,10 +22,6 @@ public class StrlenCommand implements RedisCommand
         RedisDB redisDB = connect.getRedisDB();
         RedisObject redisObject = redisDB.dict.get(key);
         if (redisObject == null) return null;
-        if (!CommandUtil.checkType(redisObject, RedisType.REDIS_STRING))
-        {
-            throw new ExecuteException("数据类型错误，目标key不是String类型");
-        }
         String ptr = (String) redisObject.getPtr();
         return ptr == null ? 0 : ptr.length();
     }
@@ -34,5 +30,11 @@ public class StrlenCommand implements RedisCommand
     public String argsCond()
     {
         return "0";
+    }
+
+    @Override
+    public RedisType typeCond()
+    {
+        return RedisType.REDIS_STRING;
     }
 }

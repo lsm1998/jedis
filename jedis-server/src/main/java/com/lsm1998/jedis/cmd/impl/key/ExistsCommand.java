@@ -5,6 +5,7 @@
 package com.lsm1998.jedis.cmd.impl.key;
 
 import com.lsm1998.jedis.cmd.RedisCommand;
+import com.lsm1998.jedis.common.RedisType;
 import com.lsm1998.jedis.common.exception.ExecuteException;
 import com.lsm1998.jedis.connect.RedisClientConnect;
 
@@ -22,5 +23,11 @@ public class ExistsCommand implements RedisCommand
     public String argsCond()
     {
         return "0";
+    }
+
+    @Override
+    public RedisType typeCond()
+    {
+        return null;
     }
 }

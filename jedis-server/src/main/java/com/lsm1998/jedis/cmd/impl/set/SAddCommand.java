@@ -73,4 +73,10 @@ public class SAddCommand implements RedisCommand
     {
         return "+1";
     }
+
+    @Override
+    public RedisType typeCond()
+    {
+        return RedisType.REDIS_SET;
+    }
 }

@@ -7,13 +7,14 @@ package com.lsm1998.jedis.common.struct.set;
 import com.lsm1998.jedis.common.exception.ExecuteException;
 import com.lsm1998.jedis.common.utils.ByteUtil;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 整数集
  */
-public class IntSet
+public class IntSet implements Serializable
 {
     public static final int INT_SET_ENC_INT64 = 1 << 3;
     public static final int INT_SET_ENC_INT32 = 1 << 2;
