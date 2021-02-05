@@ -4,8 +4,6 @@
  */
 package com.lsm1998.jedis.cmd.impl.key;
 
-import com.lsm1998.jedis.cmd.RedisCommand;
-import com.lsm1998.jedis.common.RedisType;
 import com.lsm1998.jedis.common.db.RedisDB;
 import com.lsm1998.jedis.common.exception.ExecuteException;
 import com.lsm1998.jedis.connect.RedisClientConnect;
@@ -17,7 +15,7 @@ import java.io.Serializable;
  * 当 key 存在但没有设置剩余生存时间时，返回 -1
  * 否则，以秒为单位，返回 key 的剩余生存时间
  */
-public class TtlCommand implements RedisCommand
+public class TtlCommand extends KeyCommand
 {
     @Override
     public Serializable handler(RedisClientConnect connect, String key, String[] args) throws ExecuteException
@@ -35,11 +33,5 @@ public class TtlCommand implements RedisCommand
     public String argsCond()
     {
         return "0";
-    }
-
-    @Override
-    public RedisType typeCond()
-    {
-        return null;
     }
 }

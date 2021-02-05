@@ -35,6 +35,6 @@ public class StartEvent extends AbstractObserver
         {
             log.error("打印banner失败，err={}", e.getMessage());
         }
-        log.info("FastSQL启动完毕,port=[{}]", event.getData());
+        log.info("Jedis启动完毕,port=[{}]", event.getData());
     }
 }

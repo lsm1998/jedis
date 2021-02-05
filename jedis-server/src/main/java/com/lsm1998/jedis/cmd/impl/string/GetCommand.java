@@ -8,7 +8,7 @@ import com.lsm1998.jedis.connect.RedisClientConnect;
 
 import java.io.Serializable;
 
-public class GetCommand implements RedisCommand
+public class GetCommand extends StringCommand
 {
     @Override
     public Serializable handler(RedisClientConnect connect, String key, String[] args)
@@ -23,11 +23,5 @@ public class GetCommand implements RedisCommand
     public String argsCond()
     {
         return "0";
-    }
-
-    @Override
-    public RedisType typeCond()
-    {
-        return RedisType.REDIS_STRING;
     }
 }

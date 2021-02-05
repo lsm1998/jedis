@@ -6,12 +6,11 @@ package com.lsm1998.jedis.cmd;
 
 import com.lsm1998.jedis.cmd.impl.hash.HSetCommand;
 import com.lsm1998.jedis.cmd.impl.key.*;
+import com.lsm1998.jedis.cmd.impl.list.*;
 import com.lsm1998.jedis.cmd.impl.set.SAddCommand;
-import com.lsm1998.jedis.cmd.impl.string.AppendCommand;
-import com.lsm1998.jedis.cmd.impl.string.GetCommand;
-import com.lsm1998.jedis.cmd.impl.string.SetCommand;
-import com.lsm1998.jedis.cmd.impl.string.StrlenCommand;
+import com.lsm1998.jedis.cmd.impl.string.*;
 import com.lsm1998.jedis.cmd.proxy.ProxyInstanceFactory;
+import com.lsm1998.jedis.common.RedisType;
 import com.lsm1998.jedis.common.exception.RedisException;
 import com.lsm1998.jedis.common.socket.ReplyData;
 import com.lsm1998.jedis.common.socket.ReplyType;
@@ -47,6 +46,13 @@ public class RedisCommandHandler
         commandMap.put("strlen", ProxyInstanceFactory.getInstance(new StrlenCommand()));
 
         /**
+         * list
+         */
+        commandMap.put("llen", ProxyInstanceFactory.getInstance(new LLenCommand()));
+        commandMap.put("lpush", ProxyInstanceFactory.getInstance(new LPushCommand()));
+        commandMap.put("rpush", ProxyInstanceFactory.getInstance(new RPushCommand()));
+
+        /**
          * set
          */
         commandMap.put("sadd", ProxyInstanceFactory.getInstance(new SAddCommand()));
@@ -79,6 +85,9 @@ public class RedisCommandHandler
                 {
                     reply = (ReplyData<E>) ReplyData.of(ReplyType.REPLY_LONG, result);
                 } else if (result instanceof String)
+                {
+                    reply = (ReplyData<E>) ReplyData.of(ReplyType.REPLY_STRING, result);
+                } else if(result instanceof RedisType)
                 {
                     reply = (ReplyData<E>) ReplyData.of(ReplyType.REPLY_STRING, result);
                 }

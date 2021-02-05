@@ -1,25 +1,25 @@
 /**
  * 作者：刘时明
- * 时间：2021/2/1
+ * 时间：2021/2/5
  */
-package com.lsm1998.jedis.cmd.impl.key;
+package com.lsm1998.jedis.cmd.impl.list;
 
 import com.lsm1998.jedis.common.exception.ExecuteException;
 import com.lsm1998.jedis.connect.RedisClientConnect;
 
 import java.io.Serializable;
 
-public class ExistsCommand extends KeyCommand
+public class RPushCommand extends ListCommand
 {
     @Override
     public Serializable handler(RedisClientConnect connect, String key, String[] args) throws ExecuteException
     {
-        return connect.getRedisDB().dict.containsKey(key) ? 1 : 0;
+        return push(connect, key, args, 1);
     }
 
     @Override
     public String argsCond()
     {
-        return "0";
+        return "+1";
     }
 }

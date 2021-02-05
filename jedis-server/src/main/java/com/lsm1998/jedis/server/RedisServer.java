@@ -5,6 +5,7 @@ import com.lsm1998.jedis.config.RedisConfig;
 import com.lsm1998.jedis.constant.SysProperties;
 import com.lsm1998.jedis.storage.RedisStorage;
 import com.lsm1998.jedis.storage.impl.JDKStorage;
+import com.lsm1998.jedis.storage.impl.RDBStorage;
 import lombok.Getter;
 
 import java.io.BufferedReader;
@@ -51,6 +52,10 @@ public class RedisServer
             case "jdk":
             case "JDK":
                 redisStorage = new JDKStorage(config);
+                break;
+            case "rdb":
+            case "RDB":
+                redisStorage = new RDBStorage(config);
                 break;
             default:
                 break;

@@ -4,9 +4,8 @@
  */
 package com.lsm1998.jedis.cmd.impl.key;
 
-import com.lsm1998.jedis.cmd.RedisCommand;
+import com.lsm1998.jedis.cmd.handler.NullValHandler;
 import com.lsm1998.jedis.common.RedisObject;
-import com.lsm1998.jedis.common.RedisType;
 import com.lsm1998.jedis.common.exception.ExecuteException;
 import com.lsm1998.jedis.connect.RedisClientConnect;
 
@@ -17,7 +16,7 @@ import java.io.Serializable;
  * <p>
  * 等价于 object encoding
  */
-public class ObjectCommand implements RedisCommand
+public class ObjectCommand extends KeyCommand implements NullValHandler
 {
     @Override
     public Serializable handler(RedisClientConnect connect, String key, String[] args) throws ExecuteException
@@ -30,11 +29,5 @@ public class ObjectCommand implements RedisCommand
     public String argsCond()
     {
         return "0";
-    }
-
-    @Override
-    public RedisType typeCond()
-    {
-        return null;
     }
 }

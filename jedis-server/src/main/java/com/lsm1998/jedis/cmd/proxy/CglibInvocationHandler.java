@@ -2,6 +2,7 @@ package com.lsm1998.jedis.cmd.proxy;
 
 import com.lsm1998.jedis.cmd.BaseRedisCommand;
 import com.lsm1998.jedis.cmd.RedisCommand;
+import com.lsm1998.jedis.cmd.handler.NullValHandler;
 import com.lsm1998.jedis.common.RedisObject;
 import com.lsm1998.jedis.common.RedisType;
 import com.lsm1998.jedis.common.exception.ArgsException;
@@ -37,15 +38,24 @@ public class CglibInvocationHandler implements MethodInterceptor
             {
                 throw new ArgsException("参数错误");
             }
-            if (!checkArgs(objects))
+            RedisClientConnect connect = (RedisClientConnect) objects[0];
+            String key = (String) objects[1];
+            String[] args = (String[]) objects[2];
+            if (!checkArgs(args))
             {
                 throw new ArgsException("参数数量校验不通过");
             }
-            if (!checkType(objects))
+            if (!checkType(connect, key))
             {
                 throw new TypeException("类型校验不通过");
             }
-            removeExpireKey(objects);
+            // 删除过期Key
+            removeExpireKey(connect, key);
+            // 尝试空值处理
+            if (nullValHandler(connect, key))
+            {
+                return ((NullValHandler) this.target).nullVal();
+            }
         }
         try
         {
@@ -58,15 +68,26 @@ public class CglibInvocationHandler implements MethodInterceptor
     }
 
     /**
-     * 参数数量校验
+     * 空值处理
      *
-     * @param objects
+     * @param connect
+     * @param key
      * @return
      */
-    private boolean checkArgs(Object[] objects)
+    private boolean nullValHandler(RedisClientConnect connect, String key)
+    {
+        return this.target instanceof NullValHandler && connect.getObject(key) == null;
+    }
+
+    /**
+     * 参数数量校验
+     *
+     * @param args
+     * @return
+     */
+    private boolean checkArgs(String[] args)
     {
         // 第三项是args
-        String[] args = (String[]) objects[2];
         String cond = this.target.argsCond();
         if (cond.startsWith("+"))
         {
@@ -75,16 +96,14 @@ public class CglibInvocationHandler implements MethodInterceptor
         return args.length == Integer.parseInt(cond);
     }
 
-    private boolean checkType(Object[] objects)
+    private boolean checkType(RedisClientConnect connect, String key)
     {
         RedisType redisType = this.target.typeCond();
         if (redisType == null)
         {
             return true;
         }
-        String key = (String) objects[1];
-        RedisClientConnect connect = (RedisClientConnect) objects[0];
-        RedisObject object = connect.getRedisDB().dict.get(key);
+        RedisObject object = connect.getObject(key);
         if (object == null)
         {
             return true;
@@ -110,16 +129,15 @@ public class CglibInvocationHandler implements MethodInterceptor
     /**
      * 删除过期key
      *
-     * @param objects
+     * @param key
+     * @param connect
      */
-    private void removeExpireKey(Object[] objects)
+    private void removeExpireKey(RedisClientConnect connect, String key)
     {
         if (this.target instanceof BaseRedisCommand)
         {
             return;
         }
-        String key = (String) objects[1];
-        RedisClientConnect connect = (RedisClientConnect) objects[0];
         Long expireTime = connect.getRedisDB().expires.get(key);
         if (expireTime != null && expireTime < System.currentTimeMillis())
         {

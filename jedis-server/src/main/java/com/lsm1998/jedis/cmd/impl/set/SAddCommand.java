@@ -17,7 +17,7 @@ import com.lsm1998.jedis.connect.RedisClientConnect;
 
 import java.io.Serializable;
 
-public class SAddCommand implements RedisCommand
+public class SAddCommand extends SetCommand
 {
     @Override
     public Serializable handler(RedisClientConnect connect, String key, String[] args) throws ExecuteException
@@ -72,11 +72,5 @@ public class SAddCommand implements RedisCommand
     public String argsCond()
     {
         return "+1";
-    }
-
-    @Override
-    public RedisType typeCond()
-    {
-        return RedisType.REDIS_SET;
     }
 }

@@ -1,5 +1,6 @@
 package com.lsm1998.jedis.connect;
 
+import com.lsm1998.jedis.common.RedisObject;
 import com.lsm1998.jedis.common.db.RedisDB;
 import com.lsm1998.jedis.common.utils.ArraysUtil;
 import com.lsm1998.jedis.server.RedisServer;
@@ -56,5 +57,10 @@ public class RedisClientConnect
         this.cmd = array[0];
         this.args = ArraysUtil.remove(0, array, String.class);
         return true;
+    }
+
+    public RedisObject getObject(String key)
+    {
+        return this.getRedisDB().dict.get(key);
     }
 }

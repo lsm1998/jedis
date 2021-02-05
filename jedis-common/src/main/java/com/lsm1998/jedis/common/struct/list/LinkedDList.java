@@ -211,11 +211,29 @@ public class LinkedDList<E>
 
     public void foreach(Consumer<E> consumer)
     {
-        ListNode<E> temp = this.head;
+        foreach(consumer, 0);
+    }
+
+    public void foreach(Consumer<E> consumer, int order)
+    {
+        ListNode<E> temp;
+        if (order == 0)
+        {
+            temp = this.head;
+        } else
+        {
+            temp = this.tail;
+        }
         while (temp != null)
         {
             consumer.accept(temp.value);
-            temp = temp.next;
+            if (order == 0)
+            {
+                temp = temp.next;
+            } else
+            {
+                temp = temp.prev;
+            }
         }
     }
 }

@@ -23,5 +23,7 @@ public class ListTest
         list.delNode(list.get(4));
 
         list.foreach(System.out::println);
+        System.out.println("----");
+        list.foreach(System.out::println, 1);
     }
 }
