@@ -16,6 +16,7 @@ public class RedisClientConnect
 
     // 数据库
     @Setter
+    @Getter
     private RedisServer redisServer;
 
     protected SocketChannel channel;
@@ -50,12 +51,15 @@ public class RedisClientConnect
     {
         if (command == null) return false;
         String[] array = command.split(" ");
-        if (array.length < 2)
+        if (array.length < 1)
         {
             return false;
         }
         this.cmd = array[0];
-        this.args = ArraysUtil.remove(0, array, String.class);
+        if (array.length > 1)
+        {
+            this.args = ArraysUtil.remove(0, array, String.class);
+        }
         return true;
     }
 

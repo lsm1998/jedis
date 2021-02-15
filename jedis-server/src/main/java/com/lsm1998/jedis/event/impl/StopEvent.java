@@ -20,7 +20,7 @@ public class StopEvent extends AbstractObserver
     public <E> void eventHandler(EventBean<E> event)
     {
         RedisServer redisServer = RedisServer.getInstance();
-        redisServer.save();
+        redisServer.save(false);
 
         Date now = new Date();
         Date stopDate = (Date) event.getData();
