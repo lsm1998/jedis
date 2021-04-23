@@ -80,11 +80,17 @@ public class RedisServer
         return this.redisDB[index];
     }
 
-    public void save()
+    public boolean save(boolean async)
     {
-        if (this.redisStorage != null)
+        if (this.redisStorage == null)
+            return false;
+        if (async)
+        {
+            new Thread(() -> this.redisStorage.save(this.redisDB)).start();
+        } else
         {
             this.redisStorage.save(this.redisDB);
         }
+        return true;
     }
 }
