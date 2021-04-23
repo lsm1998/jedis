@@ -31,12 +31,12 @@ public class ConfigFetch implements Closeable
             return next();
         } else
         {
-            String[] result = line.split("=");
-            if (result.length != 2)
+            int index = line.indexOf("=");
+            if (index == -1)
             {
-                throw new RuntimeException("缺少'='或过多'='");
+                throw new RuntimeException("缺少'='");
             }
-            return result;
+            return new String[]{line.substring(0, index), line.substring(index + 1)};
         }
     }
 }

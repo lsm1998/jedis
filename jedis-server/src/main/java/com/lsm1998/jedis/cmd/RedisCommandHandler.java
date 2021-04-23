@@ -23,7 +23,7 @@ import java.util.Map;
 
 public class RedisCommandHandler
 {
-    private static final Map<String, RedisCommand> commandMap = new HashMap<>(64);
+    private static final Map<String, RedisCommand> commandMap = new HashMap<>(128);
 
     static
     {
@@ -51,6 +51,7 @@ public class RedisCommandHandler
         commandMap.put("llen", ProxyInstanceFactory.getInstance(new LLenCommand()));
         commandMap.put("lpush", ProxyInstanceFactory.getInstance(new LPushCommand()));
         commandMap.put("rpush", ProxyInstanceFactory.getInstance(new RPushCommand()));
+        commandMap.put("lindex", ProxyInstanceFactory.getInstance(new LIndexCommand()));
 
         /**
          * set
@@ -87,7 +88,7 @@ public class RedisCommandHandler
                 } else if (result instanceof String)
                 {
                     reply = (ReplyData<E>) ReplyData.of(ReplyType.REPLY_STRING, result);
-                } else if(result instanceof RedisType)
+                } else if (result instanceof RedisType)
                 {
                     reply = (ReplyData<E>) ReplyData.of(ReplyType.REPLY_STRING, result);
                 }

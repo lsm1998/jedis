@@ -26,7 +26,7 @@ public class CmdRead
         Scanner scanner = new Scanner(System.in);
         while (true)
         {
-            System.out.print(">>");
+            System.out.print("Redis>>");
             String line = scanner.nextLine();
             // 这一条命令已经结束了
             if (!readReply(socket, line))

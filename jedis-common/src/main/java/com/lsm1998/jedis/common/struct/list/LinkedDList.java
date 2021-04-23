@@ -236,4 +236,20 @@ public class LinkedDList<E>
             }
         }
     }
+
+    public int indexOf(E val)
+    {
+        int index = 0;
+        ListNode<E> temp = this.head;
+        while (temp.value != null)
+        {
+            if (temp.value.equals(val))
+            {
+                return index;
+            }
+            index++;
+            temp = temp.next;
+        }
+        return -1;
+    }
 }

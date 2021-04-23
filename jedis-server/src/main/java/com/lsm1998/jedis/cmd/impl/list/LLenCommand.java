@@ -4,7 +4,6 @@
  */
 package com.lsm1998.jedis.cmd.impl.list;
 
-import com.lsm1998.jedis.cmd.RedisCommand;
 import com.lsm1998.jedis.cmd.handler.NullValHandler;
 import com.lsm1998.jedis.common.EncodingType;
 import com.lsm1998.jedis.common.RedisObject;

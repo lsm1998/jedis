@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class JedisCli
 {
-    public static void main(String[] args) throws ParseException, IOException
+    public static void main(String[] args) throws ParseException
     {
         ConfigParser parser = ConfigParser.getInstance();
         ClientConfig config = parser.parser(args);
