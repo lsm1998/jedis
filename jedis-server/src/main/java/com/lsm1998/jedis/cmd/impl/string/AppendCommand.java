@@ -49,7 +49,7 @@ public class AppendCommand extends StringCommand
     }
 
     @Override
-    public String argsCond()
+    public String argsLenCond()
     {
         return "1";
     }

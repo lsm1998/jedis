@@ -1,0 +1,27 @@
+key
+    del
+    select
+    keys
+    ttl
+    exists
+    object
+    save
+    move
+
+string
+    set
+    get
+    append
+    strlen
+
+list
+    llen
+    lpush
+    rpush
+    lindex
+
+set
+    sadd
+
+hash
+    hset

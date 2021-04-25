@@ -22,7 +22,7 @@ public class StrlenCommand extends StringCommand
     }
 
     @Override
-    public String argsCond()
+    public String argsLenCond()
     {
         return "0";
     }

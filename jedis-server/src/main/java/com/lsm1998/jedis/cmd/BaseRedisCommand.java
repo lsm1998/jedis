@@ -16,7 +16,7 @@ import java.io.Serializable;
 public abstract class BaseRedisCommand implements RedisCommand
 {
     @Override
-    public String argsCond()
+    public String argsLenCond()
     {
         return "0";
     }

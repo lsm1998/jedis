@@ -15,7 +15,7 @@ public class HSetCommand implements RedisCommand
     }
 
     @Override
-    public String argsCond()
+    public String argsLenCond()
     {
         return "+1";
     }

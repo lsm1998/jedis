@@ -32,7 +32,7 @@ public class LLenCommand extends ListCommand implements NullValHandler
     }
 
     @Override
-    public String argsCond()
+    public String argsLenCond()
     {
         return "0";
     }

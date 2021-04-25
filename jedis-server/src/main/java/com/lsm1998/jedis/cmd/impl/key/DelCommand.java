@@ -23,7 +23,7 @@ public class DelCommand extends KeyCommand
     }
 
     @Override
-    public String argsCond()
+    public String argsLenCond()
     {
         return "0";
     }

@@ -26,7 +26,7 @@ public class ObjectCommand extends KeyCommand implements NullValHandler
     }
 
     @Override
-    public String argsCond()
+    public String argsLenCond()
     {
         return "0";
     }

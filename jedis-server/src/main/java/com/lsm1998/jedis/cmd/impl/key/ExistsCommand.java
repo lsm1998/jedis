@@ -18,7 +18,7 @@ public class ExistsCommand extends KeyCommand
     }
 
     @Override
-    public String argsCond()
+    public String argsLenCond()
     {
         return "0";
     }

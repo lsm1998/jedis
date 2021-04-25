@@ -29,7 +29,7 @@ public class SetCommand extends StringCommand
     }
 
     @Override
-    public String argsCond()
+    public String argsLenCond()
     {
         return "1";
     }

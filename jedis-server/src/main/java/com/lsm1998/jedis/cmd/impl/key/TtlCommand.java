@@ -30,7 +30,7 @@ public class TtlCommand extends KeyCommand
     }
 
     @Override
-    public String argsCond()
+    public String argsLenCond()
     {
         return "0";
     }

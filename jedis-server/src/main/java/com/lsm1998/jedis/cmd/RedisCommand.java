@@ -8,9 +8,28 @@ import java.io.Serializable;
 
 public interface RedisCommand
 {
+    /**
+     * 执行方法
+     *
+     * @param connect
+     * @param key
+     * @param args
+     * @return
+     * @throws ExecuteException
+     */
     Serializable handler(RedisClientConnect connect, String key, String[] args) throws ExecuteException;
 
-    String argsCond();
+    /**
+     * 参数数量限制
+     *
+     * @return
+     */
+    String argsLenCond();
 
+    /**
+     * key对应的类型限制
+     *
+     * @return
+     */
     RedisType typeCond();
 }

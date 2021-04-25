@@ -18,7 +18,7 @@ public class RPushCommand extends ListCommand
     }
 
     @Override
-    public String argsCond()
+    public String argsLenCond()
     {
         return "+1";
     }

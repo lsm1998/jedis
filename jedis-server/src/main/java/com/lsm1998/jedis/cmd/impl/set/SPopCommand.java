@@ -32,7 +32,7 @@ public class SPopCommand extends SetCommand
     }
 
     @Override
-    public String argsCond()
+    public String argsLenCond()
     {
         return "0";
     }

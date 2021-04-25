@@ -88,7 +88,7 @@ public class CglibInvocationHandler implements MethodInterceptor
     private boolean checkArgs(String[] args)
     {
         // 第三项是args
-        String cond = this.target.argsCond();
+        String cond = this.target.argsLenCond();
         if (cond.startsWith("+"))
         {
             return args.length >= Integer.parseInt(cond.substring(1));

@@ -29,7 +29,7 @@ public class LIndexCommand extends ListCommand implements NullValHandler
     }
 
     @Override
-    public String argsCond()
+    public String argsLenCond()
     {
         return "1";
     }
