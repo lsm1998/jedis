@@ -44,6 +44,7 @@ public class AppendCommand extends StringCommand
             {
                 object.setEncoding(EncodingType.REDIS_ENCODING_RAW);
             }
+            object.setPtr(newVal);
             return newVal.length();
         }
     }

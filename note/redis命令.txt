@@ -1,6 +1,6 @@
 key
     del
-    DUMP
+    dump
     exists
     EXPIRE
     EXPIREAT

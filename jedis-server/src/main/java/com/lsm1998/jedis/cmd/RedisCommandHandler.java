@@ -38,6 +38,7 @@ public class RedisCommandHandler
         commandMap.put("object", ProxyInstanceFactory.getInstance(new ObjectCommand()));
         commandMap.put("save", ProxyInstanceFactory.getInstance(new SaveCommand()));
         commandMap.put("move", ProxyInstanceFactory.getInstance(new MoveCommand()));
+        commandMap.put("type", ProxyInstanceFactory.getInstance(new TypeCommand()));
 
         /**
          * string
