@@ -7,9 +7,11 @@ package com.lsm1998.jedis.storage.impl;
 import com.lsm1998.jedis.common.db.RedisDB;
 import com.lsm1998.jedis.config.RedisConfig;
 import com.lsm1998.jedis.storage.RedisStorage;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 
+@Slf4j
 public class JDKStorage implements RedisStorage
 {
     private final RedisConfig.DefRedisConfig config;
@@ -43,6 +45,7 @@ public class JDKStorage implements RedisStorage
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file)))
         {
             outputStream.writeObject(redisDBArrays);
+            log.info("JDKStorage save success！");
         } catch (Exception e)
         {
             e.printStackTrace();

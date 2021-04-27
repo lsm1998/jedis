@@ -41,7 +41,7 @@ public class MoveCommand extends KeyCommand
             connect.getRedisDB().expires.remove(key);
             connect.getRedisServer().getRedisDB(index).expires.put(key, expiresTime);
         }
-        return null;
+        return "ok";
     }
 
     @Override
