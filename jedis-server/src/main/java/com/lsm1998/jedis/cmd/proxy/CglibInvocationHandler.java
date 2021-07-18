@@ -96,6 +96,13 @@ public class CglibInvocationHandler implements MethodInterceptor
         return args.length == Integer.parseInt(cond);
     }
 
+    /**
+     * 类型校验
+     *
+     * @param connect
+     * @param key
+     * @return
+     */
     private boolean checkType(RedisClientConnect connect, String key)
     {
         RedisType redisType = this.target.typeCond();

@@ -17,8 +17,8 @@ public class StrlenCommand extends StringCommand
     {
         RedisObject redisObject = connect.getObject(key);
         if (redisObject == null) return null;
-        String ptr = (String) redisObject.getPtr();
-        return ptr == null ? 0 : ptr.length();
+        Object ptr = redisObject.getPtr();
+        return ptr == null ? null : ptr.toString().length();
     }
 
     @Override
