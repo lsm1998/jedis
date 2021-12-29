@@ -12,10 +12,22 @@
         <module>jedis-server</module>
         <module>jedis-common</module>
         <module>jedis-client</module>
-        <module>game-server</module>
-        <module>game-client</module>
-        <module>game-common</module>
     </modules>
+
+    <repositories>
+        <repository>
+            <id>maven-ali</id>
+            <url>http://maven.aliyun.com/nexus/content/groups/public//</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
