@@ -26,11 +26,10 @@ public class KeysCommand extends BaseRedisCommand
             if (Pattern.matches(pattern, k))
             {
                 Long expire = redisDB.expires.get(k);
-                if (expire != null && expire < now)
+                if (expire == null || expire > now)
                 {
-                    redisDB.dict.remove(k);
+                    result.add(k);
                 }
-                result.add(k);
             }
         });
         return result;
