@@ -17,13 +17,19 @@ public class KeysCommand extends BaseRedisCommand
     @Override
     public Serializable baseHandler(RedisClientConnect connect, String args) throws ExecuteException
     {
-        String pattern = args.replace("*",".*.");
+        String pattern = args.replace("*", ".*.");
         ArrayList<String> result = new ArrayList<>();
         RedisDB redisDB = connect.getRedisDB();
+        long now = System.currentTimeMillis();
         redisDB.dict.forEach((k, v) ->
         {
             if (Pattern.matches(pattern, k))
             {
+                Long expire = redisDB.expires.get(k);
+                if (expire != null && expire < now)
+                {
+                    redisDB.dict.remove(k);
+                }
                 result.add(k);
             }
         });

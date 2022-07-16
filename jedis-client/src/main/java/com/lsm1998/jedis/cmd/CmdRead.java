@@ -8,6 +8,7 @@ import com.lsm1998.jedis.socket.JedisClientSocket;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -49,7 +50,7 @@ public class CmdRead
                 byte[] bytes = socket.client2Server(cmd);
                 if (bytes == null || bytes.length == 0)
                 {
-                    System.out.println("not Reply!");
+                    System.out.println("<nil>");
                     return true;
                 }
                 Optional<ReplyData<?>> optional = BitObjectUtil.bytesToObject(bytes);
@@ -83,7 +84,13 @@ public class CmdRead
         if (data instanceof Collection)
         {
             Collection<?> c = (Collection<?>) data;
-            c.forEach(System.out::println);
+            if (c.isEmpty())
+            {
+                System.out.println("<nil>");
+            } else
+            {
+                c.forEach(System.out::println);
+            }
         }
     }
 }

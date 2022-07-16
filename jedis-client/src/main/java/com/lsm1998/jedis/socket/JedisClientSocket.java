@@ -70,7 +70,6 @@ public class JedisClientSocket
                     buffer.clear();
                     result.reset();
                     int len;
-
                     while ((len = channel.read(buffer)) > 0)
                     {
                         buffer.flip();

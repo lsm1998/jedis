@@ -2,16 +2,10 @@ package com.lsm1998.jedis.server;
 
 import com.lsm1998.jedis.common.db.RedisDB;
 import com.lsm1998.jedis.config.RedisConfig;
-import com.lsm1998.jedis.constant.SysProperties;
 import com.lsm1998.jedis.storage.RedisStorage;
 import com.lsm1998.jedis.storage.impl.JDKStorage;
 import com.lsm1998.jedis.storage.impl.RDBStorage;
 import lombok.Getter;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 public class RedisServer
 {

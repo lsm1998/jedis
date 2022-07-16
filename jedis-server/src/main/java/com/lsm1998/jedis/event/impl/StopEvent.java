@@ -26,6 +26,6 @@ public class StopEvent extends AbstractObserver
         Date stopDate = (Date) event.getData();
         long runTime = now.getTime() - stopDate.getTime();
 
-        log.info("FastSQL进程即将退出，运行时间：{}秒", runTime / 1000);
+        log.info("jedis进程即将退出，运行时间：{}秒", runTime / 1000);
     }
 }
